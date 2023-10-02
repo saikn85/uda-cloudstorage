@@ -1,48 +1,32 @@
 package com.udacity.jwdnd.course1.cloudstorage.models;
 
 public class Note {
-    private int _noteid;
-    private String _notetitle;
-    private String _notedescription;
-    private int _userid;
+    private int _noteId;
+    private int _userId;
+    private String _noteTitle;
+    private String _noteDescription;
 
-    public Note(int _noteid, String _notetitle, String _notedescription, int _userid) {
-        this._noteid = _noteid;
-        this._notetitle = _notetitle;
-        this._notedescription = _notedescription;
-        this._userid = _userid;
+    public Note(int noteId, int userId, String noteTitle, String noteDescription) {
+        this._noteId = noteId;
+        this._userId = userId;
+        this._noteTitle = noteTitle;
+        this._noteDescription = noteDescription;
     }
 
-    public int get_noteid() {
-        return _noteid;
+    public int getNoteId() {
+        return _noteId;
     }
 
-    public void set_noteid(int _noteid) {
-        this._noteid = _noteid;
+    public int getUserId() {
+        return _userId;
     }
 
-    public String get_notetitle() {
-        return _notetitle;
+    public String getNoteTitle() {
+        return _noteTitle;
     }
 
-    public void set_notetitle(String _notetitle) {
-        this._notetitle = _notetitle;
-    }
-
-    public String get_notedescription() {
-        return _notedescription;
-    }
-
-    public void set_notedescription(String _notedescription) {
-        this._notedescription = _notedescription;
-    }
-
-    public int get_userid() {
-        return _userid;
-    }
-
-    public void set_userid(int _userid) {
-        this._userid = _userid;
+    public String getNoteDescription() {
+        return _noteDescription;
     }
 
     @Override
@@ -50,20 +34,20 @@ public class Note {
         if (this == o) return true;
         if (!(o instanceof Note)) return false;
 
-        Note note = (Note) o;
+        Note thatNote = (Note) o;
 
-        if (_noteid != note._noteid) return false;
-        if (_userid != note._userid) return false;
-        if (!_notetitle.equals(note._notetitle)) return false;
-        return _notedescription.equals(note._notedescription);
+        if (this._noteId != thatNote._noteId) return false;
+        if (this._userId != thatNote._userId) return false;
+        if (!this._noteTitle.equals(thatNote._noteTitle)) return false;
+        return this._noteDescription.equals(thatNote._noteDescription);
     }
 
     @Override
     public int hashCode() {
-        int result = _noteid;
-        result = 31 * result + _notetitle.hashCode();
-        result = 31 * result + _notedescription.hashCode();
-        result = 31 * result + _userid;
+        int result = _noteId;
+        result = 31 * result + _userId;
+        result = 31 * result + _noteTitle.hashCode();
+        result = 31 * result + _noteDescription.hashCode();
         return result;
     }
 }

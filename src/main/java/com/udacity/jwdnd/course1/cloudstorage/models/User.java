@@ -5,64 +5,40 @@ public class User {
     private String _username;
     private String _salt;
     private String _password;
-    private String _firstname;
-    private String _lastname;
+    private String _firstName;
+    private String _lastName;
 
-    public User(int _userid, String _username, String _salt, String _password, String _firstname, String _lastname) {
-        this._userid = _userid;
-        this._username = _username;
-        this._salt = _salt;
-        this._password = _password;
-        this._firstname = _firstname;
-        this._lastname = _lastname;
+    public User(int userid, String username, String salt, String password, String firstName, String lastName) {
+        this._userid = userid;
+        this._username = username;
+        this._salt = salt;
+        this._password = password;
+        this._firstName = firstName;
+        this._lastName = lastName;
     }
 
-    public int get_userid() {
+    public int getUserId() {
         return _userid;
     }
 
-    public void set_userid(int _userid) {
-        this._userid = _userid;
-    }
-
-    public String get_username() {
+    public String getUsername() {
         return _username;
     }
 
-    public void set_username(String _username) {
-        this._username = _username;
-    }
-
-    public String get_salt() {
+    public String getSalt() {
         return _salt;
     }
 
-    public void set_salt(String _salt) {
-        this._salt = _salt;
-    }
-
-    public String get_password() {
+    public String getPassword() {
         return _password;
     }
 
-    public void set_password(String _password) {
-        this._password = _password;
+    public String getFirstName() {
+        return _firstName;
     }
 
-    public String get_firstname() {
-        return _firstname;
-    }
-
-    public void set_firstname(String _firstname) {
-        this._firstname = _firstname;
-    }
-
-    public String get_lastname() {
-        return _lastname;
-    }
-
-    public void set_lastname(String _lastname) {
-        this._lastname = _lastname;
+    public String getLastName() {
+        return _lastName;
     }
 
     @Override
@@ -70,14 +46,14 @@ public class User {
         if (this == o) return true;
         if (!(o instanceof User)) return false;
 
-        User user = (User) o;
+        User thatUser = (User) o;
 
-        if (_userid != user._userid) return false;
-        if (!_username.equals(user._username)) return false;
-        if (!_salt.equals(user._salt)) return false;
-        if (!_password.equals(user._password)) return false;
-        if (!_firstname.equals(user._firstname)) return false;
-        return _lastname.equals(user._lastname);
+        if (this._userid != thatUser._userid) return false;
+        if (!this._username.equals(thatUser._username)) return false;
+        if (!this._salt.equals(thatUser._salt)) return false;
+        if (!this._password.equals(thatUser._password)) return false;
+        if (!this._firstName.equals(thatUser._firstName)) return false;
+        return this._lastName.equals(thatUser._lastName);
     }
 
     @Override
@@ -86,8 +62,8 @@ public class User {
         result = 31 * result + _username.hashCode();
         result = 31 * result + _salt.hashCode();
         result = 31 * result + _password.hashCode();
-        result = 31 * result + _firstname.hashCode();
-        result = 31 * result + _lastname.hashCode();
+        result = 31 * result + _firstName.hashCode();
+        result = 31 * result + _lastName.hashCode();
         return result;
     }
 }
