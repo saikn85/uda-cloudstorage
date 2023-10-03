@@ -4,11 +4,11 @@ import java.util.Arrays;
 
 public class File {
     private int _fileId;
-    private int _userId;
-    private String _fileName;
-    private String _contentType;
-    private String _fileSize;
-    private byte[] _fileData;
+    private final int _userId;
+    private final String _fileName;
+    private final String _contentType;
+    private final String _fileSize;
+    private final byte[] _fileData;
 
     public File(int fileId, int userId, String fileName, String contentType, String fileSize, byte[] fileData) {
         this._fileId = fileId;
@@ -21,6 +21,10 @@ public class File {
 
     public int getFileId() {
         return _fileId;
+    }
+
+    public void setFileId(int fileId) {
+        this._fileId = fileId;
     }
 
     public int getUserId() {

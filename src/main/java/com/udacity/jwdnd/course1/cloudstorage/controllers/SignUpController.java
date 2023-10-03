@@ -20,12 +20,12 @@ public class SignUpController {
     }
 
     @GetMapping()
-    public String signUp() {
+    public String get() {
         return "signup";
     }
 
     @PostMapping()
-    public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
+    public String post(@ModelAttribute SignUpDto signUpDto, Model model) {
         String signupError = null;
         if (!_userService.checkUserNameAvailability(signUpDto.getUsername())) {
             signupError = "The username already exists.";
@@ -50,6 +50,6 @@ public class SignUpController {
             model.addAttribute("signupError", signupError);
         }
 
-        return "signup";
+        return "login";
     }
 }

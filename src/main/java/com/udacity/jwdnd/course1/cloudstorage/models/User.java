@@ -20,7 +20,6 @@ public class User {
     public int getUserId() {
         return _userId;
     }
-
     public void setUserId(int userId) {
         this._userId = userId;
     }
