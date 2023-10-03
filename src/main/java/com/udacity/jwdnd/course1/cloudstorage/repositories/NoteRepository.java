@@ -32,5 +32,8 @@ public interface NoteRepository {
                 "noteTitle = #{noteTitle}," +
                 "noteDescription = #{noteDescription}" +
             "WHERE noteId = #{noteId};")
-    void updateNote(int noteId, String noteTitle, String noteDescription);
+    int updateNote(int noteId, String noteTitle, String noteDescription);
+
+    @Delete("DELETE FROM NOTES WHERE noteId = #{noteId} AND userId = #{userId};")
+    int deleteNote(int noteId, int userId);
 }

@@ -33,5 +33,7 @@ public class AppSecurityConfig extends WebSecurityConfigurerAdapter {
                 .permitAll()
                 .failureUrl("/login?error=true")
                 .defaultSuccessUrl("/home", true);
+
+        http.logout().logoutUrl("/logout");
     }
 }

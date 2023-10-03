@@ -11,26 +11,34 @@ import java.util.Base64;
 public class UserService {
     private final UserRepository _userRepo;
     private final HashService _hashService;
+    private int _authUserId;
 
     public UserService(UserRepository userRepo, HashService hashService) {
         this._userRepo = userRepo;
         this._hashService = hashService;
+        this._authUserId = -1;
     }
 
-    public boolean validateUser(String userName, String password){
+    public boolean validateUser(String userName, String password) {
         User user = _userRepo.getUserByUsername(userName);
         if (user == null) return false;
+
         String encodedSalt = user.getSalt();
         String hashedPassword = _hashService.getHashedValue(password, encodedSalt);
 
-        return user.getPassword().equals(hashedPassword);
+        if (user.getPassword().equals(hashedPassword)) {
+            this._authUserId = user.getUserId();
+            return true;
+        }
+
+        return false;
     }
 
-    public boolean checkUserNameAvailability(String userName){
+    public boolean checkUserNameAvailability(String userName) {
         return _userRepo.getUserByUsername(userName) == null;
     }
 
-    public int createUser(User user){
+    public int createUser(User user) {
         SecureRandom secureRandom = new SecureRandom();
         byte[] salt = new byte[16];
         secureRandom.nextBytes(salt);
@@ -43,5 +51,9 @@ public class UserService {
                 hashedPassword,
                 user.getFirstName(),
                 user.getLastName()));
+    }
+
+    public int getAuthUserId() {
+        return this._authUserId;
     }
 }
