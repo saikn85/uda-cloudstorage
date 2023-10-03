@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 
 @Mapper
 public interface UserRepository {
-    @Select("SELECT * FROM USERS WHERE userid = #{id};")
+    @Select("SELECT * FROM USERS WHERE userId = #{id};")
     User getUserById(int id);
 
     @Select("SELECT * FROM USERS WHERE username = #{userName};")
@@ -31,6 +31,6 @@ public interface UserRepository {
                 "#{salt}, " +
                 "#{password}" +
             ");")
-    @Options(useGeneratedKeys = true, keyProperty = "userid")
+    @Options(useGeneratedKeys = true, keyProperty = "userId")
     int createUser(User user);
 }

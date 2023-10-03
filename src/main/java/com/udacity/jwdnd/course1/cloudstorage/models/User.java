@@ -1,7 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage.models;
 
 public class User {
-    private int _userid;
+    private int _userId;
     private String _username;
     private String _salt;
     private String _password;
@@ -9,7 +9,7 @@ public class User {
     private String _lastName;
 
     public User(int userid, String username, String salt, String password, String firstName, String lastName) {
-        this._userid = userid;
+        this._userId = userid;
         this._username = username;
         this._salt = salt;
         this._password = password;
@@ -18,7 +18,11 @@ public class User {
     }
 
     public int getUserId() {
-        return _userid;
+        return _userId;
+    }
+
+    public void setUserId(int userId) {
+        this._userId = userId;
     }
 
     public String getUsername() {
@@ -48,7 +52,7 @@ public class User {
 
         User thatUser = (User) o;
 
-        if (this._userid != thatUser._userid) return false;
+        if (this._userId != thatUser._userId) return false;
         if (!this._username.equals(thatUser._username)) return false;
         if (!this._salt.equals(thatUser._salt)) return false;
         if (!this._password.equals(thatUser._password)) return false;
@@ -58,7 +62,7 @@ public class User {
 
     @Override
     public int hashCode() {
-        int result = _userid;
+        int result = _userId;
         result = 31 * result + _username.hashCode();
         result = 31 * result + _salt.hashCode();
         result = 31 * result + _password.hashCode();

@@ -9,8 +9,8 @@ import java.util.Base64;
 
 @Service
 public class UserService {
-    private UserRepository _userRepo;
-    private HashService _hashService;
+    private final UserRepository _userRepo;
+    private final HashService _hashService;
 
     public UserService(UserRepository userRepo, HashService hashService) {
         this._userRepo = userRepo;
@@ -39,9 +39,9 @@ public class UserService {
         return _userRepo.createUser(new User(
                 0,
                 user.getUsername(),
-                user.getFirstName(),
-                user.getLastName(),
                 encodedSalt,
-                hashedPassword));
+                hashedPassword,
+                user.getFirstName(),
+                user.getLastName()));
     }
 }

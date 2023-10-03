@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.controllers;
 
+import com.udacity.jwdnd.course1.cloudstorage.dtos.SignUpDto;
 import com.udacity.jwdnd.course1.cloudstorage.models.User;
 import com.udacity.jwdnd.course1.cloudstorage.services.UserService;
 import org.springframework.stereotype.Controller;
@@ -24,14 +25,20 @@ public class SignUpController {
     }
 
     @PostMapping()
-    public String signUp(@ModelAttribute User user, Model model) {
+    public String signUp(@ModelAttribute SignUpDto signUpDto, Model model) {
         String signupError = null;
-        if (!_userService.checkUserNameAvailability(user.getUsername())) {
+        if (!_userService.checkUserNameAvailability(signUpDto.getUsername())) {
             signupError = "The username already exists.";
         }
 
         if (signupError == null) {
-            int rowsAdded = _userService.createUser(user);
+            int rowsAdded = _userService.createUser(new User(
+                    0,
+                    signUpDto.getUsername(),
+                    "",
+                    signUpDto.getPassword(),
+                    signUpDto.getFirstName(),
+                    signUpDto.getLastName()));
             if (rowsAdded < 0) {
                 signupError = "There was an error signing you up. Please try again.";
             }
