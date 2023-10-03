@@ -18,7 +18,7 @@ public class UserService {
     }
 
     public boolean validateUser(String userName, String password){
-        User user = _userRepo.getUser(userName);
+        User user = _userRepo.getUserByUsername(userName);
         if (user == null) return false;
         String encodedSalt = user.getSalt();
         String hashedPassword = _hashService.getHashedValue(password, encodedSalt);
@@ -27,7 +27,7 @@ public class UserService {
     }
 
     public boolean checkUserNameAvailability(String userName){
-        return _userRepo.getUser(userName) == null;
+        return _userRepo.getUserByUsername(userName) == null;
     }
 
     public int createUser(User user){
