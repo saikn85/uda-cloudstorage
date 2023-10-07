@@ -1,5 +1,6 @@
 package com.udacity.jwdnd.course1.cloudstorage.services;
 
+import com.udacity.jwdnd.course1.cloudstorage.dtos.NoteDto;
 import com.udacity.jwdnd.course1.cloudstorage.models.Note;
 import com.udacity.jwdnd.course1.cloudstorage.repositories.NoteRepository;
 import org.springframework.stereotype.Service;
@@ -20,13 +21,13 @@ public class NoteService {
         return _noteRepo.getNote(noteId);
     }
 
-    public boolean addUpdateNote(Note note) {
+    public boolean addUpdateNote(NoteDto note, int userId) {
         if (note.getNoteId() > 0)
             return _noteRepo.updateNote(note.getNoteId(), note.getNoteTitle(), note.getNoteDescription()) > 0;
         else
             return _noteRepo.createNote(new Note(
                     0,
-                    note.getUserId(),
+                    userId,
                     note.getNoteTitle(),
                     note.getNoteDescription())) > 0;
     }

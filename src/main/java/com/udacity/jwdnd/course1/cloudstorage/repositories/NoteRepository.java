@@ -28,9 +28,9 @@ public interface NoteRepository {
     @Options(useGeneratedKeys = true, keyProperty = "noteId")
     int createNote(Note note);
 
-    @Update("UPDATE NOTES SET" +
-                "noteTitle = #{noteTitle}," +
-                "noteDescription = #{noteDescription}" +
+    @Update("UPDATE NOTES SET " +
+                "noteTitle = #{noteTitle}, " +
+                "noteDescription = #{noteDescription} " +
             "WHERE noteId = #{noteId};")
     int updateNote(int noteId, String noteTitle, String noteDescription);
 

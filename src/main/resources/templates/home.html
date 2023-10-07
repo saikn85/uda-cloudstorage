@@ -226,7 +226,7 @@
 <script type="text/javascript">
     // For opening the note modal
     function showNoteModal(noteId, noteTitle, noteDescription) {
-        $('#note-id').val(noteId ? noteId : '');
+        $('#note-id').val(noteId ? noteId : -1);
         $('#note-title').val(noteTitle ? noteTitle : '');
         $('#note-description').val(noteDescription ? noteDescription : '');
         $('#noteModal').modal('show');
