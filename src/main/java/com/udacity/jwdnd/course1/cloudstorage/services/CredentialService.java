@@ -29,9 +29,9 @@ public class CredentialService {
                     return new CredDto(
                             cred.getCredentialId(),
                             cred.getUrl(),
-                            cred.getUsername(),
-                            cred.getPassword(),
-                            decryptedPassword);
+                            cred.getUserName(),
+                            decryptedPassword,
+                            cred.getPassword());
                 }).collect(Collectors.toSet());
     }
 
@@ -41,7 +41,13 @@ public class CredentialService {
 
     public boolean addUpdateUserCred(CredDto cred, int userId) {
         if (cred.getCredentialId() > 0) {
-            var credential = _credRepo.getCredential(cred.getCredentialId());
+            var credential = new Credential(
+                    cred.getCredentialId(),
+                    0,
+                    "",
+                    "",
+                    "",
+                    cred.getPassword());
             doCryptoMagic(credential);
             return _credRepo.updateCredential(
                     credential.getCredentialId(),

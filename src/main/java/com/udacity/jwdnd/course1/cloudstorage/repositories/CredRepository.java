@@ -18,7 +18,7 @@ public interface CredRepository {
                 "url, " +
                 "userName, " +
                 "key, " +
-                "password, " +
+                "password " +
             ") " +
             "VALUES" +
             "(" +

@@ -237,6 +237,15 @@
         $('#credential-id').val(credentialId ? credentialId : -1);
         $('#credential-url').val(url ? url : '');
         $('#credential-username').val(username ? username : '');
+        // to update password
+        if($('#credential-id').val() > 0){
+            $('#credential-url').prop('disabled', true);
+            $('#credential-username').prop('disabled', true);
+        } else {
+            $('#credential-username').prop('disabled', false);
+            $('#credential-url').prop('disabled', false);
+        }
+
         $('#credential-password').val(password ? password : '');
         $('#credentialModal').modal('show');
     }

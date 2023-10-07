@@ -29,10 +29,10 @@ public class CredController {
             } else {
                 if (_credSvc.deleteCredential(cred.getCredentialId(), cred.getUserId())) {
                     model.addAttribute("result_key", "Success");
-                    model.addAttribute("result_message", "Note Deleted!");
+                    model.addAttribute("result_message", "Credential Deleted!");
                 } else {
                     model.addAttribute("result_key", "Failure");
-                    model.addAttribute("result_message", "Note was not Deleted!");
+                    model.addAttribute("result_message", "Credential was not Deleted!");
                 }
             }
         } catch (Exception ex) {
@@ -48,10 +48,10 @@ public class CredController {
         try {
             if (_credSvc.addUpdateUserCred(cred, _userSvc.getAuthUserId())) {
                 model.addAttribute("result_key", "Success");
-                model.addAttribute("result_message", "Note details were persisted!");
+                model.addAttribute("result_message", "Credential details were persisted!");
             } else {
                 model.addAttribute("result_key", "Failure");
-                model.addAttribute("result_message", "Note details were not persisted!");
+                model.addAttribute("result_message", "Credential details were not persisted!");
             }
         } catch (Exception ex) {
             model.addAttribute("result_key", "Error");

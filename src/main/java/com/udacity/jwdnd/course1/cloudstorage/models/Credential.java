@@ -41,11 +41,11 @@ public class Credential {
         this._url = url;
     }
 
-    public String getUsername() {
+    public String getUserName() {
         return _userName;
     }
 
-    public void setUsername(String userName) {
+    public void setUserName(String userName) {
         this._userName = userName;
     }
 
