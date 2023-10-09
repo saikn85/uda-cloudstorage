@@ -14,12 +14,12 @@ public class CredController {
     private final CredentialService _credSvc;
     private final UserService _userSvc;
 
-    public CredController(CredentialService _credSvc, UserService userSvc) {
-        this._credSvc = _credSvc;
+    public CredController(CredentialService credSvc, UserService userSvc) {
+        this._credSvc = credSvc;
         this._userSvc = userSvc;
     }
 
-    @GetMapping("/{credId}")
+    @GetMapping("/{credId}/delete")
     public String deleteCredential(@PathVariable int credId, Model model) {
         try {
             var cred = _credSvc.getCredentialById(credId);

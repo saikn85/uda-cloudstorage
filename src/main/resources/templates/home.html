@@ -28,7 +28,7 @@
         </nav>
         <div class="tab-content" id="nav-tabContent">
             <div class="tab-pane fade show active" id="nav-files" role="tabpanel" aria-labelledby="nav-files-tab">
-                <form action="#" enctype="multipart/form-data" method="POST">
+                <form action="#" th:action="@{/files}" enctype="multipart/form-data" method="POST">
                     <div class="container">
                         <div class="row" style="margin: 1em;">
                             <div class="col-sm-2">
@@ -52,12 +52,14 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
+                        <tr th:each="file : ${files}">
                             <td>
-                                <a target="_blank" class="btn btn-success">View</a>
-                                <a class="btn btn-danger">Delete</a>
+                                <a target="_blank" class="btn btn-success"
+                                   th:href="@{/files/{fileId}(fileId=${file.fileId})/view}">View</a>
+                                <a class="btn btn-danger"
+                                   th:href="@{/files/{fileId}(fileId=${file.fileId})/delete}">Delete</a>
                             </td>
-                            <th scope="row">ExampleFile.txt</th>
+                            <th scope="row" th:text="${file.fileName}">ExampleFile.txt</th>
                         </tr>
                         </tbody>
                     </table>
@@ -90,7 +92,7 @@
                                     Edit
                                 </button>
                                 <!-- https://www.thymeleaf.org/doc/articles/standardurlsyntax.html#adding-parameters -->
-                                <a class="btn btn-danger" th:href="@{/notes/{noteId}(noteId=${note.noteId})}">Delete</a>
+                                <a class="btn btn-danger" th:href="@{/notes/{noteId}(noteId=${note.noteId})/delete}">Delete</a>
                             </td>
                             <th scope="row" th:text="${note.noteTitle}">Example Note Title</th>
                             <td th:text="${note.noteDescription}">Example Note Description</td>
@@ -163,7 +165,9 @@
                                     Edit
                                 </button>
                                 <a class="btn btn-danger"
-                                   th:href="@{/credentials/{credentialId}(credentialId=${cred.credentialId})}">Delete</a>
+                                   th:href="@{/credentials/{credentialId}(credentialId=${cred.credentialId})/delete}">
+                                    Delete
+                                </a>
                             </td>
                             <th th:text="${cred.url}" scope="row">Example Credential URL</th>
                             <td th:text="${cred.username}">Example Credential Username</td>
