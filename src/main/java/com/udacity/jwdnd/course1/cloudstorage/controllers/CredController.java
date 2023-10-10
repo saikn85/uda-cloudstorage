@@ -19,7 +19,7 @@ public class CredController {
         this._userSvc = userSvc;
     }
 
-    @GetMapping("/{credId}/delete")
+    @GetMapping("/delete/{credId}")
     public String deleteCredential(@PathVariable int credId, Model model) {
         try {
             var cred = _credSvc.getCredentialById(credId);

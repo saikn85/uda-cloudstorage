@@ -29,7 +29,7 @@ public class FileController {
         this._userSvc = userSvc;
     }
 
-    @GetMapping("/{fileId}/view")
+    @GetMapping("/view/{fileId}")
     public ResponseEntity<Resource> viewFile(@PathVariable int fileId, Model model) throws URISyntaxException {
         try {
             var file = _fileSvc.getFileById(fileId);
@@ -50,7 +50,7 @@ public class FileController {
         }
     }
 
-    @GetMapping("/{fileId}/delete")
+    @GetMapping("/delete/{fileId}")
     public String deleteFile(@PathVariable int fileId, Model model) {
         try {
             var file = _fileSvc.getFileById(fileId);

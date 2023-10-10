@@ -11,7 +11,7 @@ public interface FileRepository {
     @Select("SELECT * FROM FILES WHERE fileId = #{fileId};")
     File getFile(int fileId);
 
-    @Select("SELECT * FROM FILES WHERE fileName LIKE %#{fileName}% AND userId = #{userId};")
+    @Select("SELECT * FROM FILES WHERE fileName LIKE #{fileName} AND userId = #{userId};")
     File getFileByFileName(String fileName, int userId);
 
     @Insert(

@@ -18,7 +18,7 @@ public class NoteController {
         this._userSvc = userSvc;
     }
 
-    @GetMapping("/{noteId}/delete")
+    @GetMapping("/delete/{noteId}")
     public String deleteNote(@PathVariable int noteId, Model model) {
         try {
             var note = _notesSvc.getNoteById(noteId);

@@ -55,9 +55,9 @@
                         <tr th:each="file : ${files}">
                             <td>
                                 <a target="_blank" class="btn btn-success"
-                                   th:href="@{/files/{fileId}(fileId=${file.fileId})/view}">View</a>
+                                   th:href="@{/files/view/{fileId}(fileId=${file.fileId})}">View</a>
                                 <a class="btn btn-danger"
-                                   th:href="@{/files/{fileId}(fileId=${file.fileId})/delete}">Delete</a>
+                                   th:href="@{/files/delete/{fileId}(fileId=${file.fileId})}">Delete</a>
                             </td>
                             <th scope="row" th:text="${file.fileName}">ExampleFile.txt</th>
                         </tr>
@@ -92,7 +92,7 @@
                                     Edit
                                 </button>
                                 <!-- https://www.thymeleaf.org/doc/articles/standardurlsyntax.html#adding-parameters -->
-                                <a class="btn btn-danger" th:href="@{/notes/{noteId}(noteId=${note.noteId})/delete}">Delete</a>
+                                <a class="btn btn-danger" th:href="@{/notes/delete/{noteId}(noteId=${note.noteId})}">Delete</a>
                             </td>
                             <th scope="row" th:text="${note.noteTitle}">Example Note Title</th>
                             <td th:text="${note.noteDescription}">Example Note Description</td>
@@ -165,7 +165,7 @@
                                     Edit
                                 </button>
                                 <a class="btn btn-danger"
-                                   th:href="@{/credentials/{credentialId}(credentialId=${cred.credentialId})/delete}">
+                                   th:href="@{/credentials/delete/{credentialId}(credentialId=${cred.credentialId})}">
                                     Delete
                                 </a>
                             </td>
