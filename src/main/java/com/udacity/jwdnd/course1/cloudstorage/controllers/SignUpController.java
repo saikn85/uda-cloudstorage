@@ -48,7 +48,7 @@ public class SignUpController {
             model.addAttribute("signupError", signupError);
             return "signup";
         }
-
-        return "login";
+        model.addAttribute("signupSuccess", "You successfully signed up!");
+        return "redirect:login.html";
     }
 }
