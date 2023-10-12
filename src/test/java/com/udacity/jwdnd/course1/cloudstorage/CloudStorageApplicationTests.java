@@ -96,7 +96,6 @@ class CloudStorageApplicationTests {
      **/
     private void doLogIn(String userName) {
         // Log in to our dummy account.
-        driver.get("http://localhost:" + this.port + "/login");
         WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputUsername")));
@@ -114,7 +113,6 @@ class CloudStorageApplicationTests {
         loginButton.click();
 
         webDriverWait.until(ExpectedConditions.titleContains("Home"));
-
     }
 
     /**
