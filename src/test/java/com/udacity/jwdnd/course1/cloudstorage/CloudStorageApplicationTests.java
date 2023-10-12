@@ -1,7 +1,8 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
+import com.udacity.jwdnd.course1.cloudstorage.pages.LoginPage;
+import com.udacity.jwdnd.course1.cloudstorage.pages.SignupPage;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -49,45 +50,12 @@ class CloudStorageApplicationTests {
      * PLEASE DO NOT DELETE THIS method.
      * Helper method for Udacity-supplied sanity checks.
      **/
-    private void doMockSignUp(String firstName, String userName) {
+    private void doMockSignUp(String firstName, String lastName, String userName, String password) {
         // Create a dummy account for logging in later.
-
-        // Visit the sign-up page.
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
-        driver.get("http://localhost:" + this.port + "/signup");
-        webDriverWait.until(ExpectedConditions.titleContains("Sign Up"));
-
-        // Fill out credentials
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputFirstName")));
-        WebElement inputFirstName = driver.findElement(By.id("inputFirstName"));
-        inputFirstName.click();
-        inputFirstName.sendKeys(firstName);
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputLastName")));
-        WebElement inputLastName = driver.findElement(By.id("inputLastName"));
-        inputLastName.click();
-        inputLastName.sendKeys("Test");
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputUsername")));
-        WebElement inputUsername = driver.findElement(By.id("inputUsername"));
-        inputUsername.click();
-        inputUsername.sendKeys(userName);
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputPassword")));
-        WebElement inputPassword = driver.findElement(By.id("inputPassword"));
-        inputPassword.click();
-        inputPassword.sendKeys("123");
-
-        // Attempt to sign up.
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("buttonSignUp")));
-        WebElement buttonSignUp = driver.findElement(By.id("buttonSignUp"));
-        buttonSignUp.click();
-
-		/* Check that the sign-up was successful.
-		// You may have to modify the element "success-msg" and the sign-up 
-		// success message below depending on the rest of your code.
-		*/
-        Assertions.assertTrue(driver.findElement(By.id("success-msg")).getText().contains("You successfully signed up!"));
+        var signupPage = new SignupPage(this.driver, this.port);
+        signupPage.doMockSignUp(firstName, lastName, userName, password);
+        Assertions.assertTrue(
+                driver.findElement(By.id("success-msg")).getText().contains("You successfully signed up!"));
     }
 
 
@@ -95,25 +63,10 @@ class CloudStorageApplicationTests {
      * PLEASE DO NOT DELETE THIS method.
      * Helper method for Udacity-supplied sanity checks.
      **/
-    private void doLogIn(String userName) {
+    private void doLogIn(String userName, String password) {
         // Log in to our dummy account.
-        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputUsername")));
-        WebElement loginUserName = driver.findElement(By.id("inputUsername"));
-        loginUserName.click();
-        loginUserName.sendKeys(userName);
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("inputPassword")));
-        WebElement loginPassword = driver.findElement(By.id("inputPassword"));
-        loginPassword.click();
-        loginPassword.sendKeys("123");
-
-        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("login-button")));
-        WebElement loginButton = driver.findElement(By.id("login-button"));
-        loginButton.click();
-
-        webDriverWait.until(ExpectedConditions.titleContains("Home"));
+        var loginPage = new LoginPage(driver, port);
+        loginPage.doLogin(userName, password);
     }
 
     /**
@@ -130,7 +83,7 @@ class CloudStorageApplicationTests {
     @Test
     public void testRedirection() {
         // Create a test account
-        doMockSignUp("Redirection", "RT");
+        doMockSignUp("Redirection", "RT", "RTUser", "RTPassword");
 
         // Check if we have been redirected to the login page.
         Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
@@ -151,8 +104,8 @@ class CloudStorageApplicationTests {
     @Test
     public void testBadUrl() {
         // Create a test account
-        doMockSignUp("URL", "UT");
-        doLogIn("UT");
+        doMockSignUp("URL", "UT", "RedirectTest", "RedirectPassword");
+        doLogIn("RedirectTest", "RedirectPassword");
 
         // Try to access a random made-up URL.
         driver.get("http://localhost:" + this.port + "/some-random-page");
@@ -175,8 +128,8 @@ class CloudStorageApplicationTests {
     @Test
     public void testLargeUpload() {
         // Create a test account
-        doMockSignUp("Large File", "LFT");
-        doLogIn("LFT");
+        doMockSignUp("Large File", "LFT", "LFTUser", "LFTPassword");
+        doLogIn("LFTUser", "LFTPassword");
 
         // Try to upload an arbitrary large file
         WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
@@ -197,6 +150,9 @@ class CloudStorageApplicationTests {
         Assertions.assertTrue(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
     }
 
+    /**
+     * Test that verifies that an unauthorized user can only access the login and signup pages.
+     */
     @Test
     public void testUnauthorizedAccess() {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
@@ -210,17 +166,25 @@ class CloudStorageApplicationTests {
         Assertions.assertTrue(driver.getPageSource().contains("Sign Up"));
     }
 
+    /**
+     * Test that signs up a new user,
+     * - logs in,
+     * - verifies that the home page is accessible,
+     * - logs out,
+     * - and verifies that the home page is no longer accessible.
+     */
     @Test
     public void testHomePage() {
         WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
 
-        doMockSignUp("test", "test");
-        doLogIn("test");
+        doMockSignUp("test", "test","Test", "test");
+        doLogIn("Test", "test");
         Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
 
         webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logoutDiv")));
         WebElement logoutBtn = driver.findElement(By.id("logout-btn"));
         logoutBtn.click();
         Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+        Assertions.assertFalse(driver.getPageSource().contains("Home"));
     }
 }
