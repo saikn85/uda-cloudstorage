@@ -1,6 +1,7 @@
 package com.udacity.jwdnd.course1.cloudstorage;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.assertj.core.api.Assert;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -194,5 +195,32 @@ class CloudStorageApplicationTests {
         }
 
         Assertions.assertTrue(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
+    }
+
+    @Test
+    public void testUnauthorizedAccess() {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
+        driver.get("http://localhost:" + this.port + "/home");
+
+        // redirect to login page
+        Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
+
+        driver.get("http://localhost:" + this.port + "/signup");
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.className("display-5")));
+        Assertions.assertTrue(driver.getPageSource().contains("Sign Up"));
+    }
+
+    @Test
+    public void testHomePage() {
+        WebDriverWait webDriverWait = new WebDriverWait(driver, 2);
+
+        doMockSignUp("test", "test");
+        doLogIn("test");
+        Assertions.assertEquals("http://localhost:" + this.port + "/home", driver.getCurrentUrl());
+
+        webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.id("logoutDiv")));
+        WebElement logoutBtn = driver.findElement(By.id("logout-btn"));
+        logoutBtn.click();
+        Assertions.assertEquals("http://localhost:" + this.port + "/login", driver.getCurrentUrl());
     }
 }
