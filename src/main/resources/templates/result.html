@@ -19,7 +19,7 @@
             Click <a th:href="@{/home}">here</a> to continue.
         </span>
     </div>
-    <div class="alert alert-danger fill-parent" th:if="${result_key == 'Failure'}">
+    <div class="alert alert-warning fill-parent" th:if="${result_key == 'Failure'}">
         <h1 class="display-5">Error</h1>
         <span th:text="${result_message}">
             Your changes were not saved.
