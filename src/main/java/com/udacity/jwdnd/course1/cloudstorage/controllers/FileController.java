@@ -43,10 +43,10 @@ public class FileController {
                     .body(new ByteArrayResource(file.getFileData()));
         } catch (Exception ex) {
             model.addAttribute("result_key", "Error");
-            model.addAttribute("result_message", "Internal Server Error");
+            model.addAttribute("result_message", "Internal Server Error - " + ex.getLocalizedMessage());
             return (ResponseEntity<Resource>) ResponseEntity
                     .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                    .location(new URI("result"));
+                    .location(new URI("error"));
         }
     }
 
@@ -77,6 +77,12 @@ public class FileController {
     @PostMapping()
     public String post(@RequestParam("fileUpload") MultipartFile file, Model model) {
         try {
+            if (file.getSize() <= 0) {
+                model.addAttribute("result_key", "Error");
+                model.addAttribute("result_message", "File upload failed - No file was selected for Upload!");
+                return "error";
+            }
+
             var newfile = new File(
                     0,
                     _userSvc.getAuthUserId(),
@@ -97,9 +103,10 @@ public class FileController {
                 model.addAttribute("result_message", "File details were not persisted - duplicate file!");
                 return "result";
             }
-        } catch (Exception ex) {
+        } catch (Exception ex1) {
             model.addAttribute("result_key", "Error");
-            model.addAttribute("result_message", "Internal Server Error");
+            model.addAttribute("result_message", "Internal Server Error - " + ex1.getLocalizedMessage());
+            return "error";
         }
         return "result";
     }

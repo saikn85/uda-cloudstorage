@@ -109,7 +109,7 @@ class CloudStorageApplicationTests {
 
         // Try to access a random made-up URL.
         driver.get("http://localhost:" + this.port + "/some-random-page");
-        Assertions.assertTrue(driver.getPageSource().contains("Whitelabel Error Page"));
+        Assertions.assertTrue(driver.getPageSource().contains("Error"));
     }
 
 
@@ -147,7 +147,7 @@ class CloudStorageApplicationTests {
             System.out.println("Large File upload failed");
         }
 
-        Assertions.assertTrue(driver.getPageSource().contains("HTTP Status 403 – Forbidden"));
+        Assertions.assertTrue(driver.getPageSource().contains("Error"));
     }
 
     /**

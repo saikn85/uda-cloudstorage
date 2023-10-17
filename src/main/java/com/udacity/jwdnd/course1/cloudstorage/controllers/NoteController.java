@@ -36,7 +36,8 @@ public class NoteController {
             }
         } catch (Exception ex) {
             model.addAttribute("result_key", "Error");
-            model.addAttribute("result_message", "Internal Server Error");
+            model.addAttribute("result_message", "Internal Server Error - " + ex.getLocalizedMessage());
+            return "error";
         }
 
         return "result";
@@ -54,7 +55,8 @@ public class NoteController {
             }
         } catch (Exception ex) {
             model.addAttribute("result_key", "Error");
-            model.addAttribute("result_message", "Internal Server Error");
+            model.addAttribute("result_message", "Internal Server Error - " + ex.getLocalizedMessage());
+            return "error";
         }
         return "result";
     }
